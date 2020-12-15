@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class Player : MonoBehaviour
+{
+
+
+    protected Joystick joystick;
+
+
+
+    public float velocidade; // Velocidade   
+    private bool m_FacingRight = true; // Está olhando para a direita
+    private SpriteRenderer sprite;
+    
+
+
+
+ 
+
+
+    void Start()
+    {
+       
+        sprite = GetComponent<SpriteRenderer>(); // A variável sprite pega o componente sprite renderer
+        joystick = FindObjectOfType<Joystick>();
+     
+
+
+
+    }
+
+
+
+    void Update()
+    {
+       
+        float movimento = Input.GetAxis("Horizontal"); // Movimentos horizontais, caminhar e andar 
+        Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+
+
+        rigidbody.velocity = new Vector2(joystick.Horizontal * velocidade, rigidbody.velocity.y);
+       
+    
+        if (joystick.Horizontal < 0)
+        { 
+            m_FacingRight = false; // Se movimento menor que 0, não está olhando para direita
+            sprite.flipX = true; // Vira
+           
+        }
+        else if (joystick.Horizontal > 0)
+        //else if (movimento > 0)
+        {
+          
+            m_FacingRight = true; // Está olhando para a direita
+            sprite.flipX = false; //Não vira
+           
+        }
+
+        else if (movimento == 0)
+        {
+           
+        }
+
+
+
+    }
+
+    
+
+
+}
+
+
